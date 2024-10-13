@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>TOTP Generator</title>
+</head>
+<body>
+    <div class="content">
+        <div class="card1">
+            <div class="title">
+                <img src="shield.png" id="logoImage">
+                <h1 style="color: #766886;">Verify</h1>
+                <h1 style="color: #ad65ff;">Gate</h1>
+            </div>
+            <br><br>
+            <label for="secretKey">Secret Key</label>
+            <div>
+                <input type="text" id="secretKey" placeholder="Your secret key">
+                <button onclick="generateTOTP()" id="generateButton">Generate</button>
+            </div>
+            <br><hr><br>
+            <div class="results">
+                <h2>CURRENT TOTP: <span id="currentTOTP" style="color: #ad65ff;"></span></h2>
+                <!--<button id="copyButton">copy</button>-->
+            </div>
+            <div class="results">
+                <h2>NEXT TOTP: <span id="nextTOTP" style="color: #cca0ff;"></span></h2>
+            </div>
+            <br>
+            <h3>Remain time: <span id="remainTime" style="color: #cca0ff;"></span></h3>
+            <div class="barContainer">
+                <div class="bar" id="progressBar"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content2">
+        <div class="card2">
+            <div class="title">
+                <h1 style="color: #766886;">Buy me a </h1>
+                <h1 style="color: #ad65ff; margin-left: 0.6rem;">Coffee</h1>
+            </div>
+            <br>
+            <p>Show the creator some love by</p><p style="display: flex; align-items: center;">donating with paypal!</p>
+            <a href="https://www.paypal.com/donate/?hosted_button_id=78P55A9PQUYFU"><button id="supportButton">Donate</button></a>
+        </div>
+    </div>
+
+    <script>
+        async function generateTOTP() {
+            const secret = document.getElementById('secretKey').value;
+            if (!secret) {
+                alert("Please enter a secret key.");
+                return;
+            }
+            try 
+            {
+                const response = await fetch('totp.php', 
+                {
+                    method: 'POST',headers: 
+                    {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },body: new URLSearchParams(
+                        { 
+                            secretKey: secret 
+                        })
+                    });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    document.getElementById('currentTOTP').innerText = data.currentTOTP;
+                    document.getElementById('nextTOTP').innerText = data.nextTOTP;
+                } else {
+                    alert("Error generating TOTP: " + (data.error || "Unknown error"));
+                }
+            } 
+            catch (error) {
+                console.error("Error:", error);
+                alert("Failed to generate TOTP.");
+            }
+            
+            startCountDown();
+        }
+
+        function startCountDown() {
+            clearInterval(window.countdownInterval);
+            getValidTime();
+            window.countdownInterval = setInterval(getValidTime, 1000);
+        }
+
+        async function getServerTime() {
+            const response = await fetch('time.php');
+            const data = await response.json();
+            return data.time;
+        }
+
+        async function getValidTime() {
+            const serverTime = await getServerTime();
+            const seconds = new Date(serverTime * 1000).getSeconds() % 30;
+            const remainSeconds = 30 - seconds;
+
+            const progressBar = document.getElementById('progressBar');
+            const progressWidth = ((seconds + 1) / 30) * 100;
+            progressBar.style.width = `${progressWidth}%`;
+
+            document.getElementById('remainTime').innerText = remainSeconds;
+
+            if (remainSeconds === 30) { 
+                generateTOTP();
+                progressBar.style.width = `${0}%`;
+            }
+        }
+    </script>
+
+</body>
+</html>

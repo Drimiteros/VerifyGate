@@ -1,0 +1,166 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Poppins", sans-serif;
+    animation: fadeIn 1s ease-in-out forwards;
+    background-color: #ebebeb;
+    color: #766886;
+}
+
+@keyframes fadeIn {
+    0%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+
+.content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding-top: 7rem;
+}
+.content2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding-top: 2rem;
+}
+
+.card1 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: #ffff;
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 0px 10px 15px #0000003a;
+    min-width: 20rem;
+    max-width: 20rem;
+}
+.card2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: #ffff;
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 0px 10px 15px #0000003a;
+    min-width: 20rem;
+    max-width: 20rem;
+}
+
+.title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+}
+
+hr {
+    height: 1px;
+    width: 100%;
+}
+
+#secretKey {
+    border: none;
+    background-color: #ebebeb;
+    padding: 0.5rem;
+    border-radius: 10px;
+    margin-top: 0.5rem;
+}
+
+#generateButton {
+    margin-top: 1rem;
+    border: none;
+    background-color: #e0c5ff;
+    border-radius: 10px;
+    padding: 0.5rem;
+    transition: all 0.1s ease;
+    font-weight: bold;
+    font-size: 0.8rem;
+}
+#generateButton:hover {
+    cursor: pointer;
+    border: none;
+    background-color: #ad65ff;
+    color: #ffffff;
+    transition: all 0.1s ease;
+    box-shadow: 0px 5px 5px #0000003a;
+    font-size: 0.85rem;
+}
+#supportButton {
+    margin-top: 1rem;
+    border: none;
+    background-color: #e0c5ff;
+    border-radius: 10px;
+    padding: 0.5rem;
+    transition: all 0.1s ease;
+    font-weight: bold;
+    font-size: 1rem;
+}
+#supportButton:hover {
+    cursor: pointer;
+    border: none;
+    background-color: #ad65ff;
+    color: #ffffff;
+    transition: all 0.1s ease;
+    box-shadow: 0px 5px 5px #0000003a;
+    font-size: 1.2rem;
+}
+
+.results {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+}
+
+#copyButton {
+    margin-left: 1rem;
+    border: none;
+    background-color: #e0c5ff;
+    border-radius: 10px;
+    padding: 0.5rem;
+    transition: all 0.1s ease;
+    font-weight: bold;
+    font-size: 0.7rem;
+}
+#copyButton:hover {
+    cursor: pointer;
+    border: none;
+    background-color: #ad65ff;
+    color: #ffffff;
+    transition: all 0.1s ease;
+    box-shadow: 0px 5px 5px #0000003a;
+}
+
+#logoImage {
+    width: 60px;
+    height: 100%;
+}
+
+.barContainer {
+    width: 100%;
+    height: 20px;
+    background-color: #ebebeb;
+    border-radius: 10px;
+    margin-top: 0.5rem;
+}
+.bar {
+    width: 0%;
+    height: 20px;
+    background-color: #ad65ff;
+    border-radius: 10px;
+    transition: all 0.1s ease;
+}
